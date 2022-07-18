@@ -1,0 +1,38 @@
+{% extends "layout.html" %} {% block content %}
+<style>
+  .button {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    width: auto;
+  }
+</style>
+<div class="row">
+  <h3 class="mt-5">Streaming</h3>
+  <img src="{{ url_for('video_feed') }}" alt="" width="100%" />
+</div>
+<div class="button">
+  <a href="#" id="submit" class="btn btn-warning" role="button">拍照</a>
+</div>
+<div class="col-result" id="result"></div>
+<script>
+  $("#submit").click(function () {
+    $.ajax({
+      url: "/shot_photo",
+      type: "GET",
+      processData: false,
+      contentType: false,
+      dataType: "text",
+      async: false,
+      success: function (result) {
+        //成功后的回调事件
+        alert(result);
+        // var html =
+        //   '<div class="alert alert-success" role="alert" id="result">' +
+        //   result +
+        //   " </div>";
+        // $("#result").append(html);
+      },
+    });
+  });
+</script>
+{% endblock content %}

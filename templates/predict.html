@@ -1,0 +1,78 @@
+{% extends "layout.html" %} {% block content %}
+<div class="container-fluid">
+  <h1 class="text-center">深度学习之垃圾分类api</h1>
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <div class="row-fluid">
+    <div class="span12">
+      <form>
+        <div class="form-group">
+          <div class="col-sm-4">
+            <div class="input-group">
+              <input
+                id="location"
+                class="form-control"
+                onclick="$('#i-file').click();"
+              />
+              <label class="input-group-btn">
+                <input
+                  type="button"
+                  id="i-check"
+                  value="浏览文件"
+                  class="btn btn-primary"
+                  onclick="$('#i-file').click();"
+                />
+              </label>
+            </div>
+          </div>
+          <input
+            type="file"
+            name="file"
+            id="i-file"
+            onchange="$('#location').val($('#i-file').val());"
+            style="display: none"
+          />
+        </div>
+      </form>
+      <p>
+        <a href="#" id="submit" class="btn btn-warning" role="button">提交</a>
+      </p>
+    </div>
+  </div>
+
+  <div class="col-sm-12" id="result"></div>
+</div>
+
+<script>
+  $("#submit").click(function () {
+    var formData = new FormData();
+    var file = document.getElementById("i-file").files[0];
+    console.log(file);
+    formData.append("file", file);
+    console.log(formData);
+    $.ajax({
+      url: "/predict",
+      type: "POST",
+      data: formData,
+      processData: false,
+      contentType: false,
+      dataType: "json",
+      async: false,
+      success: function (result) {
+        //成功后的回调事件
+        console.log(result);
+        var html =
+          '<div class="alert alert-success" role="alert" id="result">' +
+          result.result +
+          " </div>";
+        $("#result").append(html);
+      },
+    });
+  });
+</script>
+{% endblock content %}
