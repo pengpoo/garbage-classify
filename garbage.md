@@ -214,7 +214,37 @@ if __name__ == '__main__':
 
 
 
-
-
-<img src="https://note-pics-1305201806.cos.ap-nanjing.myqcloud.com/2022/04/28/194305.png" alt="np_channel_first_last" style="zoom:50%;" />
+```python
+import numpy as np
+channel_r = np.array([[1, 1, 1], [1, 1, 1]])
+channel_g = np.array([[2, 2, 2], [2, 2, 2]])
+channel_b = np.array([[3, 3, 3], [3, 3, 3]])
+channel_last = np.dstack((channel_r, channel_g, channel_b))
+channel_last
+Out[10]: 
+array([[[1, 2, 3],
+        [1, 2, 3],
+        [1, 2, 3]],
+       [[1, 2, 3],
+        [1, 2, 3],
+        [1, 2, 3]]])
+channel_first = channel_last.transpose((2, 0, 1))
+channel_first
+Out[12]: 
+array([[[1, 1, 1],
+        [1, 1, 1]],
+       [[2, 2, 2],
+        [2, 2, 2]],
+       [[3, 3, 3],
+        [3, 3, 3]]])
+# rgb -> bgr
+channel_last[..., ::-1]
+Out[14]: 
+array([[[3, 2, 1],
+        [3, 2, 1],
+        [3, 2, 1]],
+       [[3, 2, 1],
+        [3, 2, 1],
+        [3, 2, 1]]])
+```
 
